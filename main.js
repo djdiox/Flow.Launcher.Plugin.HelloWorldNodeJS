@@ -1,8 +1,26 @@
 const open = require('./node_modules/open')
-
-const { method, parameters } = JSON.parse(process.argv[2])
+const { method, parameters } = {method: 'query', parameters: 'test'}
+function run(cmd, callback) {
+    var spawn = require('child_process').spawn;
+    var command = spawn(cmd);
+    var result = '';
+    command.stdout.on('data', function(data) {
+         result += data.toString();
+    });
+    command.on('close', function(code) {
+        return callback(result);
+    });
+    command.on('error', function(err) {
+        return callback(null, err);
+    });
+}
 
 if (method === "query") {
+	// run('op signin  && op item list', (text) => {
+	// 	console.log(text)
+	// 	// var result = JSON.parse(text);
+	// 	// console.log(result);
+	// })
 	console.log(JSON.stringify(
 		{
 			"result": [{
@@ -18,14 +36,14 @@ if (method === "query") {
 	));
 }
 
-if (method === "do_something_for_query") {
-	url = parameters[0]
-	do_something_for_query(url)
-}
+// if (method === "do_something_for_query") {
+// 	url = parameters[0]
+// 	do_something_for_query(url)
+// }
 
-function do_something_for_query(url) {
-	open(url);
-}
+// function do_something_for_query(url) {
+// 	open(url);
+// }
 
  
 

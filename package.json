@@ -1,6 +1,12 @@
 {
-  "name": "HelloWorldNodeJS",
+  "name": "HelloWorld",
+  "scripts": {
+    "start": " node main.js "
+  },
   "dependencies": {
     "open": "^8.4.0"
+  },
+  "engines": {
+    "node": "10"
   }
 }
